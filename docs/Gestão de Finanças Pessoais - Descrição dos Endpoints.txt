@@ -1,0 +1,39 @@
+Usuarios
+
+GET /users - Listagem de todos os usuários do sistema;
+GET /users/{user_id} - Busca por usuário pelo ID;
+GET /users/{username} - Busca por usuário pelo username;
+
+PUT/PATCH /users/{user_id} - Atualização de dados do usuário pelo ID;
+PUT/PATCH /users/{username} - Atualização de dados do usuário pelo usuário de login;
+
+DELETE /users/{user_id} - Deleção de usuário por ID;
+DELETE /users/{username} - Deleção de usuário por usuário de login;
+
+
+POST /login - Para autenticação no sistema por meio de usuário e senha;
+POST /register - Para criação de usuários no sistema
+
+
+Categorias
+
+GET /categorias - Lista todas as categorias, utilizando filtro de Query Parameters para buscar categorias de um usuário específico;
+GET /categorias/{categoria_id} - Busca informações de uma categoria por ID;
+
+POST /categorias - Cria uma nova categoria;
+
+PUT/PATCH /categorias/{categoria_id} - Atualiza uma categoria pelo ID;
+
+DELETE /categorias/{categoria_id} - Remove uma categoria pelo ID;
+
+
+Transações
+
+GET /transacoes - Lista todas as transações do sistema, utilizando filtro de Query Parameters para pegar transações de um usuário específico e/ou categoria específica;
+GET /transacoes/{transacao_id} - Busca informações de uma transação pelo ID;
+
+POST /transacoes - Cria uma nova transação;
+
+PUT/PATCH /transacoes/{transacao_id} - Atualiza uma transação pelo ID;
+
+DELETE /transacoes/{transacao_id} - Remove uma transação;
