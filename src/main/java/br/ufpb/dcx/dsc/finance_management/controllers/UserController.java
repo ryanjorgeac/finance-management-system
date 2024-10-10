@@ -50,7 +50,7 @@ public class UserController {
 
     @GetMapping("/users/{username}")
     UserDTOResponse getUserById(@PathVariable String username){
-        User user = userService.getUserByUserName(username);
+        User user = userService.getUserByUsername(username);
         return convertToDTO(user);
     }
 
