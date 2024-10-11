@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.finance_management.services;
 
+import br.ufpb.dcx.dsc.finance_management.exceptions.ItemNotFoundException;
 import br.ufpb.dcx.dsc.finance_management.models.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -29,8 +30,11 @@ public class UserService {
     }
 
     public User getUserByUsername(String username){
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ItemNotFoundException("User " + username + " not found!"));
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new ItemNotFoundException("User " + username + " not found!");
+        }
+        return user;
     }
 
     public User createUser(User user){
@@ -48,9 +52,10 @@ public class UserService {
     }
 
     public User updateUserByUsername(String username, User user){
-        User toUpdate = userRepository
-                .findByUsername(username)
-                .orElseThrow(() -> new ItemNotFoundException("User " + username + " not found!"));
+        User toUpdate = userRepository.findByUsername(username);
+        if (toUpdate == null) {
+            throw new ItemNotFoundException("User " + username + " not found!");
+        }
         toUpdate.setName(user.getName());
         return userRepository.save(toUpdate);
     }
@@ -59,14 +64,14 @@ public class UserService {
         User toDelete = userRepository
                 .findById(userId)
                 .orElseThrow(() -> new ItemNotFoundException("User " + userId + " not found!"));
-        return userRepository.delete(toDelete);
+        userRepository.delete(toDelete);
     }
 
     public void deleteUserByUsername(String username){
-        User toDelete = userRepository
-                .findByUsername(username)
-                .orElseThrow(() -> new ItemNotFoundException("User " + username + " not found!"));
-        return userRepository.delete(toDelete);
+        User toDelete = userRepository.findByUsername(username);
+        if (toDelete == null) {
+            throw new ItemNotFoundException("User " + username + " not found!");
+        }
+        userRepository.delete(toDelete);
     }
-
 }
