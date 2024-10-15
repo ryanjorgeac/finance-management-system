@@ -1,10 +1,13 @@
 package br.ufpb.dcx.dsc.finance_management.services;
 
 import br.ufpb.dcx.dsc.finance_management.DTOs.CategoryDTO;
+import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTO;
+import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTOResponse;
 import br.ufpb.dcx.dsc.finance_management.models.Category;
 import br.ufpb.dcx.dsc.finance_management.models.User;
 import br.ufpb.dcx.dsc.finance_management.repositories.CategoryRepository;
 import br.ufpb.dcx.dsc.finance_management.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,9 @@ public class CategoryService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         Optional<User> userOptional = userRepository.findById(categoryDTO.getUserId());
         if (userOptional.isPresent()) {
@@ -30,17 +36,43 @@ public class CategoryService {
             category.setUser(user);
 
             Category savedCategory = categoryRepository.save(category);
-            return new CategoryDTO(savedCategory.getId(), savedCategory.getName(), user.getId());
+            return convertToDTO(savedCategory);
         } else {
             throw new RuntimeException("User not found");
         }
     }
 
+    private CategoryDTO convertToDTO(Category category){
+        return modelMapper.map(category, CategoryDTO.class);
+    }
+
+    private Category convertToEntity(CategoryDTO categoryDTO){
+        return modelMapper.map(categoryDTO, Category.class);
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categoryRepository
+                .findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
     public List<CategoryDTO> getCategoriesByUserId(Long userId) {
         List<Category> categories = categoryRepository.findByUserId(userId);
         return categories.stream()
-                .map(cat -> new CategoryDTO(cat.getId(), cat.getName(), cat.getUser().getId()))
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public CategoryDTO getCategoryById(Long categoryId){
+        Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
+        if(categoryOptional.isPresent()){
+            Category category = categoryOptional.get();
+            return convertToDTO(category);
+        } else {
+            throw new RuntimeException("Category not found");
+        }
     }
 
     public CategoryDTO updateCategory(Long categoryId, CategoryDTO categoryDTO) {
@@ -49,7 +81,7 @@ public class CategoryService {
             Category category = categoryOptional.get();
             category.setName(categoryDTO.getName());
             categoryRepository.save(category);
-            return new CategoryDTO(category.getId(), category.getName(), category.getUser().getId());
+            return convertToDTO(category);
         } else {
             throw new RuntimeException("Category not found");
         }
