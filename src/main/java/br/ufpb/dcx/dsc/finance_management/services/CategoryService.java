@@ -1,8 +1,6 @@
 package br.ufpb.dcx.dsc.finance_management.services;
 
 import br.ufpb.dcx.dsc.finance_management.DTOs.CategoryDTO;
-import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTO;
-import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTOResponse;
 import br.ufpb.dcx.dsc.finance_management.models.Category;
 import br.ufpb.dcx.dsc.finance_management.models.User;
 import br.ufpb.dcx.dsc.finance_management.repositories.CategoryRepository;
@@ -50,9 +48,14 @@ public class CategoryService {
         return modelMapper.map(categoryDTO, Category.class);
     }
 
-    public List<CategoryDTO> getCategories() {
-        return categoryRepository
-                .findAll()
+    public List<CategoryDTO> getCategories(Long userId) {
+        List<Category> categories;
+        if(userId == null){
+            categories = categoryRepository.findAll();
+        } else {
+            categories = categoryRepository.findByUserId(userId);
+        }
+        return categories
                 .stream()
                 .map(this::convertToDTO)
                 .toList();

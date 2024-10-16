@@ -58,6 +58,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     UserDTOResponse createUser(@Valid @RequestBody UserDTO userDTO){
         User user = convertToEntity(userDTO);
+        System.out.println("saldo é " + (user.getBalance().toString()));
         User savedUser = userService.createUser(user);
         return convertToDTO(savedUser);
     }

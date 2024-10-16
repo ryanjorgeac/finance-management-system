@@ -30,6 +30,12 @@ public class Transaction {
     @Column(name = "type")
     private TransactionTypes type;
 
+    @ManyToOne
+    private Category category;
+
+    @ManyToOne
+    private User user;
+
     public Transaction() {
     }
 
