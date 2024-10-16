@@ -61,12 +61,12 @@ public class CategoryService {
                 .toList();
     }
 
-    public List<CategoryDTO> getCategoriesByUserId(Long userId) {
-        List<Category> categories = categoryRepository.findByUserId(userId);
-        return categories.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
+ //   public List<CategoryDTO> getCategoriesByUserId(Long userId) {
+   //     List<Category> categories = categoryRepository.findByUserId(userId);
+     //   return categories.stream()
+       //         .map(this::convertToDTO)
+         //       .collect(Collectors.toList());
+    //}
 
     public CategoryDTO getCategoryById(Long categoryId){
         Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
