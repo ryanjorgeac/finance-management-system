@@ -33,7 +33,8 @@ public class TransactionController {
 
     @PostMapping("/transactions")
     public ResponseEntity<TransactionDTO> createTransaction(@RequestBody TransactionDTO transactionDTO) {
-        return transactionService.createTransaction(transactionDTO);
+        TransactionDTO transaction = transactionService.createTransaction(transactionDTO);
+        return new ResponseEntity<>(transaction, HttpStatus.CREATED);
     }
 
 }
