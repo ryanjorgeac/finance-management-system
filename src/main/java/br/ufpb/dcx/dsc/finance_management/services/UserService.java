@@ -38,8 +38,8 @@ public class UserService {
     }
 
     public User createUser(User user){
-        String encondedPw = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(encondedPw);
+        String encodedPw = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPw);
         return userRepository.save(user);
     }
 
