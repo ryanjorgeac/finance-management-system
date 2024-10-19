@@ -2,6 +2,7 @@ package br.ufpb.dcx.dsc.finance_management.controllers;
 
 import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTO;
 import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTOResponse;
+import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTOUpdate;
 import br.ufpb.dcx.dsc.finance_management.models.User;
 import br.ufpb.dcx.dsc.finance_management.services.UserService;
 import jakarta.validation.Valid;
@@ -33,6 +34,10 @@ public class UserController {
         return modelMapper.map(userDTO, User.class);
     }
 
+    private User convertToEntity(UserDTOUpdate userDTO){
+        return modelMapper.map(userDTO, User.class);
+    }
+
     @GetMapping("/users")
     List<UserDTOResponse> listUsers(){
         return userService
@@ -45,14 +50,15 @@ public class UserController {
     @GetMapping("/users/{userId}")
     UserDTOResponse getUserById(@PathVariable Long userId){
         User user = userService.getUserById(userId);
+        System.out.println(user.toString());
         return convertToDTO(user);
     }
 
-    @GetMapping("/users/{username}")
-    UserDTOResponse getUserById(@PathVariable String username){
-        User user = userService.getUserByUsername(username);
-        return convertToDTO(user);
-    }
+//    @GetMapping("/users/{username}")
+//    UserDTOResponse getUserById(@PathVariable String username){
+//        User user = userService.getUserByUsername(username);
+//        return convertToDTO(user);
+//    }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
@@ -64,27 +70,27 @@ public class UserController {
     }
 
     @PutMapping("/users/{userId}")
-    public UserDTOResponse updateUser(@PathVariable Long userId, @RequestBody UserDTO userDTO){
+    public UserDTOResponse updateUser(@PathVariable Long userId, @RequestBody UserDTOUpdate userDTO){
         User user = convertToEntity(userDTO);
         User updated = userService.updateUserByUserId(userId, user);
         return convertToDTO(updated);
     }
 
-    @PutMapping("/users/{username}")
-    public UserDTOResponse updateUser(@PathVariable String username, @RequestBody UserDTO userDTO){
-        User user = convertToEntity(userDTO);
-        User updated = userService.updateUserByUsername(username, user);
-        return convertToDTO(updated);
-    }
+//    @PutMapping("/users/{username}")
+//    public UserDTOResponse updateUser(@PathVariable String username, @RequestBody UserDTO userDTO){
+//        User user = convertToEntity(userDTO);
+//        User updated = userService.updateUserByUsername(username, user);
+//        return convertToDTO(updated);
+//    }
 
     @DeleteMapping("/users/{userId}")
     public void deleteUser(@PathVariable Long userId){
         userService.deleteUserById(userId);
     }
 
-    @DeleteMapping("/users/{username}")
-    public void deleteUser(@PathVariable String username){
-        userService.deleteUserByUsername(username);
-    }
+//    @DeleteMapping("/users/{username}")
+//    public void deleteUser(@PathVariable String username){
+//        userService.deleteUserByUsername(username);
+//    }
 
 }
