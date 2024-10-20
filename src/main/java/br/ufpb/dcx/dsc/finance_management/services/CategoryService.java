@@ -26,7 +26,8 @@ public class CategoryService {
 
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         Optional<User> userOptional = userRepository.findById(categoryDTO.getUserId());
-        if (userOptional.isPresent()) {
+        Optional<Category> categoryOptional = categoryRepository.findByName(categoryDTO.getName());
+        if (userOptional.isPresent() && categoryOptional.isEmpty()) {
             User user = userOptional.get();
             Category category = new Category();
             category.setName(categoryDTO.getName());
@@ -35,7 +36,7 @@ public class CategoryService {
             Category savedCategory = categoryRepository.save(category);
             return convertToDTO(savedCategory);
         } else {
-            throw new RuntimeException("User not found");
+            throw new RuntimeException("User not found or Category already exists with provided name.");
         }
     }
 

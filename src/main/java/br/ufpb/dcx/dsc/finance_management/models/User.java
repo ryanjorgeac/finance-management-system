@@ -89,4 +89,8 @@ public class User {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
+
+    public void addToBalance(BigDecimal balance) {
+        this.balance = this.balance.add(balance);
+    }
 }
