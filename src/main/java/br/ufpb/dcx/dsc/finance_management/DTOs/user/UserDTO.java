@@ -1,4 +1,4 @@
-package br.ufpb.dcx.dsc.finance_management.DTOs;
+package br.ufpb.dcx.dsc.finance_management.DTOs.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ public class UserDTO {
 
     @NotNull
     @NotBlank
-    private String nome;
+    private String name;
 
     @NotNull
     @NotBlank
@@ -30,12 +30,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public @NotNull @NotBlank String getNome() {
-        return nome;
+    public @NotNull @NotBlank String getName() {
+        return name;
     }
 
-    public void setNome(@NotNull @NotBlank String nome) {
-        this.nome = nome;
+    public void setName(@NotNull @NotBlank String name) {
+        this.name = name;
     }
 
     public @NotNull @NotBlank String getUsername() {
@@ -58,7 +58,7 @@ public class UserDTO {
     public String toString() {
         return "UserDTO{" +
                 "id=" + id +
-                ", nome='" + nome + '\'' +
+                ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';

@@ -30,7 +30,7 @@ public class User {
     private Collection<Transaction> transactions;
 
     @Column(name = "balance")
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
     public User() {}
 
@@ -80,5 +80,17 @@ public class User {
 
     public void setTransactions(Collection<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public void addToBalance(BigDecimal balance) {
+        this.balance = this.balance.add(balance);
     }
 }

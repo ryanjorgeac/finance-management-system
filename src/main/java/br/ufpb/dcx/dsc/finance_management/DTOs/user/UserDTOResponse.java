@@ -1,10 +1,10 @@
-package br.ufpb.dcx.dsc.finance_management.DTOs;
+package br.ufpb.dcx.dsc.finance_management.DTOs.user;
 
 import java.math.BigDecimal;
 
 public class UserDTOResponse {
     private Long id;
-    private String nome;
+    private String name;
     private String username;
     private BigDecimal balance;
 
@@ -16,12 +16,12 @@ public class UserDTOResponse {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {
@@ -44,7 +44,7 @@ public class UserDTOResponse {
     public String toString() {
         return "UserDTOResponse{" +
                 "id=" + id +
-                ", nome='" + nome + '\'' +
+                ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", balance=" + balance +
                 '}';

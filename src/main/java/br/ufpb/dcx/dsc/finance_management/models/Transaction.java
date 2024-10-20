@@ -30,6 +30,12 @@ public class Transaction {
     @Column(name = "type")
     private TransactionTypes type;
 
+    @ManyToOne
+    private Category category;
+
+    @ManyToOne
+    private User user;
+
     public Transaction() {
     }
 
@@ -71,6 +77,22 @@ public class Transaction {
 
     public void setType(TransactionTypes type) {
         this.type = type;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
