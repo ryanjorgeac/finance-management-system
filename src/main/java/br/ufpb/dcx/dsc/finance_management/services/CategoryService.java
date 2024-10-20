@@ -27,8 +27,6 @@ public class CategoryService {
 
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         Optional<User> userOptional = userRepository.findById(categoryDTO.getUserId());
-
-        if (userOptional.isPresent()) {
         Optional<Category> categoryOptional = categoryRepository.findByName(categoryDTO.getName());
         if (userOptional.isPresent() && categoryOptional.isEmpty()) {
             User user = userOptional.get();

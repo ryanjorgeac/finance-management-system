@@ -81,19 +81,6 @@ public class TransactionService {
         if (user.isPresent() && category.isPresent()) {
             User toUpdate = user.get();
             Category category1 = category.get();
-            Transaction transaction = new Transaction();
-            if (transactionDTO.getType() == TransactionTypes.OUTCOMING) {
-                BigDecimal currentBalance = getUserBalance(transactionDTO.getUserId());
-                if (currentBalance.compareTo(transactionDTO.getValue()) < 0) {
-                    throw new InsufficientBalanceException("Insufficient balance to complete this OUTCOMING transaction.");
-                }
-            }
-            transaction.setDescription(transactionDTO.getDescription());
-            transaction.setDate(transactionDTO.getDate());
-            transaction.setValue(transactionDTO.getValue());
-            transaction.setUser(toUpdate);
-            transaction.setCategory(category1);
-            transaction.setType(transactionDTO.getType());
 
             Transaction transaction = getTransaction(transactionDTO, category1, toUpdate);
             Transaction created = transactionRepository.save(transaction);
@@ -111,7 +98,7 @@ public class TransactionService {
         TransactionTypes type = transactionDTO.getType();
         Transaction transaction = new Transaction();
         if (type == TransactionTypes.OUTCOMING && value.compareTo(toUpdate.getBalance()) > 0) {
-            throw new InvalidTransactionValue("Outcoming transaction value must be less than or equals to user balance.");
+            throw new InsufficientBalanceException("Outcoming transaction value must be less than or equals to user balance.");
         }
 
         transaction.setDescription(transactionDTO.getDescription());
