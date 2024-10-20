@@ -1,7 +1,7 @@
 package br.ufpb.dcx.dsc.finance_management.controllers;
 
 
-import br.ufpb.dcx.dsc.finance_management.DTOs.TransactionDTO;
+import br.ufpb.dcx.dsc.finance_management.DTOs.transaction.TransactionDTO;
 import br.ufpb.dcx.dsc.finance_management.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

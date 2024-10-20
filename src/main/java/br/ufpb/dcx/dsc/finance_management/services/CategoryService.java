@@ -1,6 +1,6 @@
 package br.ufpb.dcx.dsc.finance_management.services;
 
-import br.ufpb.dcx.dsc.finance_management.DTOs.CategoryDTO;
+import br.ufpb.dcx.dsc.finance_management.DTOs.category.CategoryDTO;
 import br.ufpb.dcx.dsc.finance_management.models.Category;
 import br.ufpb.dcx.dsc.finance_management.models.User;
 import br.ufpb.dcx.dsc.finance_management.repositories.CategoryRepository;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {

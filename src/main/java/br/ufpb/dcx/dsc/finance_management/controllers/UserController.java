@@ -1,8 +1,9 @@
 package br.ufpb.dcx.dsc.finance_management.controllers;
 
-import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTO;
-import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTOResponse;
-import br.ufpb.dcx.dsc.finance_management.DTOs.UserDTOUpdate;
+import br.ufpb.dcx.dsc.finance_management.DTOs.user.UserCreationDTO;
+import br.ufpb.dcx.dsc.finance_management.DTOs.user.UserDTO;
+import br.ufpb.dcx.dsc.finance_management.DTOs.user.UserDTOResponse;
+import br.ufpb.dcx.dsc.finance_management.DTOs.user.UserDTOUpdate;
 import br.ufpb.dcx.dsc.finance_management.models.User;
 import br.ufpb.dcx.dsc.finance_management.services.UserService;
 import jakarta.validation.Valid;
@@ -34,7 +35,11 @@ public class UserController {
         return modelMapper.map(userDTO, User.class);
     }
 
-    private User convertToEntity(UserDTOUpdate userDTO){
+    private User convertToEntityUpdate(UserDTOUpdate userDTO){
+        return modelMapper.map(userDTO, User.class);
+    }
+
+    private User convertToEntityCreation(UserCreationDTO userDTO){
         return modelMapper.map(userDTO, User.class);
     }
 
@@ -50,7 +55,6 @@ public class UserController {
     @GetMapping("/users/{userId}")
     UserDTOResponse getUserById(@PathVariable Long userId){
         User user = userService.getUserById(userId);
-        System.out.println(user.toString());
         return convertToDTO(user);
     }
 
@@ -62,8 +66,8 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    UserDTOResponse createUser(@Valid @RequestBody UserDTO userDTO){
-        User user = convertToEntity(userDTO);
+    UserDTOResponse createUser(@Valid @RequestBody UserCreationDTO userDTO){
+        User user = convertToEntityCreation(userDTO);
         System.out.println("saldo é " + (user.getBalance().toString()));
         User savedUser = userService.createUser(user);
         return convertToDTO(savedUser);
@@ -71,7 +75,7 @@ public class UserController {
 
     @PutMapping("/users/{userId}")
     public UserDTOResponse updateUser(@PathVariable Long userId, @RequestBody UserDTOUpdate userDTO){
-        User user = convertToEntity(userDTO);
+        User user = convertToEntityUpdate(userDTO);
         User updated = userService.updateUserByUserId(userId, user);
         return convertToDTO(updated);
     }

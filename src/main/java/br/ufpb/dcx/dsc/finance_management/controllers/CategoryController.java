@@ -1,6 +1,6 @@
 package br.ufpb.dcx.dsc.finance_management.controllers;
 
-import br.ufpb.dcx.dsc.finance_management.DTOs.CategoryDTO;
+import br.ufpb.dcx.dsc.finance_management.DTOs.category.CategoryDTO;
 import br.ufpb.dcx.dsc.finance_management.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

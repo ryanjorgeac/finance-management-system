@@ -1,4 +1,4 @@
-package br.ufpb.dcx.dsc.finance_management.DTOs;
+package br.ufpb.dcx.dsc.finance_management.DTOs.user;
 
 public class UserLoginDTO {
 

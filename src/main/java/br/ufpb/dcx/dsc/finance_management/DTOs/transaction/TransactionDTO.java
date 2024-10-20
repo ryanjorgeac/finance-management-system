@@ -1,4 +1,4 @@
-package br.ufpb.dcx.dsc.finance_management.DTOs;
+package br.ufpb.dcx.dsc.finance_management.DTOs.transaction;
 
 import br.ufpb.dcx.dsc.finance_management.types.TransactionTypes;
 import br.ufpb.dcx.dsc.finance_management.validation.TransactionType;

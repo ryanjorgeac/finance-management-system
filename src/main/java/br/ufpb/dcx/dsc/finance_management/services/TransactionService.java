@@ -1,6 +1,6 @@
 package br.ufpb.dcx.dsc.finance_management.services;
 
-import br.ufpb.dcx.dsc.finance_management.DTOs.TransactionDTO;
+import br.ufpb.dcx.dsc.finance_management.DTOs.transaction.TransactionDTO;
 import br.ufpb.dcx.dsc.finance_management.exceptions.ItemNotFoundException;
 import br.ufpb.dcx.dsc.finance_management.models.Category;
 import br.ufpb.dcx.dsc.finance_management.models.Transaction;

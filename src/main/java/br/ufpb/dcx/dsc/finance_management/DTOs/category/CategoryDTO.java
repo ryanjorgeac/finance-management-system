@@ -1,4 +1,4 @@
-package br.ufpb.dcx.dsc.finance_management.DTOs;
+package br.ufpb.dcx.dsc.finance_management.DTOs.category;
 
 public class CategoryDTO {
     private Long id;
