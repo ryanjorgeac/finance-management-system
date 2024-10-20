@@ -1,6 +1,7 @@
 package br.ufpb.dcx.dsc.finance_management.services;
 
 import br.ufpb.dcx.dsc.finance_management.exceptions.ItemNotFoundException;
+import br.ufpb.dcx.dsc.finance_management.exceptions.UserNotFoundException;
 import br.ufpb.dcx.dsc.finance_management.models.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -26,13 +27,13 @@ public class UserService {
 
     public User getUserById(Long userId){
         return userRepository.findById(userId)
-                .orElseThrow(() -> new ItemNotFoundException("User " + userId + " not found!"));
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found!"));
     }
 
     public User getUserByUsername(String username){
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new ItemNotFoundException("User " + username + " not found!");
+            throw new UserNotFoundException("User " + username + " not found!");
         }
         return user;
     }
@@ -46,7 +47,7 @@ public class UserService {
     public User updateUserByUserId(Long userId, User user){
         User toUpdate = userRepository
                 .findById(userId)
-                .orElseThrow(() -> new ItemNotFoundException("User " + userId + " not found!"));
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found!"));
         toUpdate.setName(user.getName());
         return userRepository.save(toUpdate);
     }
@@ -54,7 +55,7 @@ public class UserService {
     public User updateUserByUsername(String username, User user){
         User toUpdate = userRepository.findByUsername(username);
         if (toUpdate == null) {
-            throw new ItemNotFoundException("User " + username + " not found!");
+            throw new UserNotFoundException("User " + username + " not found!");
         }
         toUpdate.setName(user.getName());
         return userRepository.save(toUpdate);
@@ -63,15 +64,16 @@ public class UserService {
     public void deleteUserById(Long userId){
         User toDelete = userRepository
                 .findById(userId)
-                .orElseThrow(() -> new ItemNotFoundException("User " + userId + " not found!"));
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found!"));
         userRepository.delete(toDelete);
     }
 
     public void deleteUserByUsername(String username){
         User toDelete = userRepository.findByUsername(username);
         if (toDelete == null) {
-            throw new ItemNotFoundException("User " + username + " not found!");
+            throw new UserNotFoundException("User " + username + " not found!");
         }
         userRepository.delete(toDelete);
     }
 }
+
