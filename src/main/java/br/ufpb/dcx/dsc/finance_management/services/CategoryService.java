@@ -1,6 +1,7 @@
 package br.ufpb.dcx.dsc.finance_management.services;
 
 import br.ufpb.dcx.dsc.finance_management.DTOs.category.CategoryDTO;
+import br.ufpb.dcx.dsc.finance_management.exceptions.UserNotFoundException;
 import br.ufpb.dcx.dsc.finance_management.models.Category;
 import br.ufpb.dcx.dsc.finance_management.models.User;
 import br.ufpb.dcx.dsc.finance_management.repositories.CategoryRepository;
@@ -26,6 +27,8 @@ public class CategoryService {
 
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         Optional<User> userOptional = userRepository.findById(categoryDTO.getUserId());
+
+        if (userOptional.isPresent()) {
         Optional<Category> categoryOptional = categoryRepository.findByName(categoryDTO.getName());
         if (userOptional.isPresent() && categoryOptional.isEmpty()) {
             User user = userOptional.get();
@@ -36,7 +39,7 @@ public class CategoryService {
             Category savedCategory = categoryRepository.save(category);
             return convertToDTO(savedCategory);
         } else {
-            throw new RuntimeException("User not found or Category already exists with provided name.");
+            throw new UserNotFoundException("User with ID " + categoryDTO.getUserId() + " not found.");
         }
     }
 
