@@ -15,7 +15,6 @@ public class TransactionDTO {
     private String description;
 
     @NotNull
-    @NotBlank
     private Long userId;
 
     @NotNull
@@ -23,7 +22,6 @@ public class TransactionDTO {
     private Calendar date;
 
     @NotNull
-    @NotBlank
     private BigDecimal value;
 
     @NotNull
@@ -32,7 +30,6 @@ public class TransactionDTO {
     private TransactionTypes type;
 
     @NotNull
-    @NotBlank
     private Long categoryId;
 
     public TransactionDTO() {
