@@ -97,7 +97,8 @@ public class TransactionService {
 
     private static Transaction getTransaction(TransactionDTO transactionDTO, Category category, User toUpdate) {
         BigDecimal value = transactionDTO.getValue();
-        TransactionTypes type = transactionDTO.getType();
+        String typeName = transactionDTO.getType();
+        TransactionTypes type = TransactionTypes.valueOf(typeName);
         Transaction transaction = new Transaction();
         if (type == TransactionTypes.OUTCOMING && value.compareTo(toUpdate.getBalance()) > 0) {
             throw new InsufficientBalanceException("Outcoming transaction value must be less than or equals to user balance.");
@@ -121,7 +122,7 @@ public class TransactionService {
         if (descriptionToUpdate != null) {
             t.setDescription(descriptionToUpdate);
         }
-        t.setType(transactionDTO.getType());
+        t.setType(TransactionTypes.valueOf(transactionDTO.getType()));
         t.setValue(transactionDTO.getValue());
 
         Long userId = transactionDTO.getUserId();
