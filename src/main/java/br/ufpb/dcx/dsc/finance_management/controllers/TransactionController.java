@@ -38,4 +38,16 @@ public class TransactionController {
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
     }
 
+    @PutMapping("/transactions/{transactionId}")
+    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable Long transactionId, @Valid @RequestBody TransactionDTO transactionDTO) {
+        TransactionDTO transaction = transactionService.updateTransaction(transactionId, transactionDTO);
+        return new ResponseEntity<>(transaction, HttpStatus.OK);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/transactions/transactionId")
+    public void deleteTransaction(@PathVariable Long transactionId) {
+        transactionService.deleteTransaction(transactionId);
+    }
+
 }

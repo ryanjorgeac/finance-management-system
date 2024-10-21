@@ -10,9 +10,11 @@ import br.ufpb.dcx.dsc.finance_management.repositories.CategoryRepository;
 import br.ufpb.dcx.dsc.finance_management.repositories.TransactionRepository;
 import br.ufpb.dcx.dsc.finance_management.repositories.UserRepository;
 import br.ufpb.dcx.dsc.finance_management.types.TransactionTypes;
+import jakarta.validation.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -108,6 +110,43 @@ public class TransactionService {
         transaction.setCategory(category);
         transaction.setType(type);
         return transaction;
+    }
+
+    public TransactionDTO updateTransaction(Long id, TransactionDTO transactionDTO) {
+        Transaction t = transactionRepository
+                .findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("Transaction " + id + " not found."));
+
+        String descriptionToUpdate = transactionDTO.getDescription();
+        if (descriptionToUpdate != null) {
+            t.setDescription(descriptionToUpdate);
+        }
+        t.setType(transactionDTO.getType());
+        t.setValue(transactionDTO.getValue());
+
+        Long userId = transactionDTO.getUserId();
+        User user = userRepository
+                .findById(userId)
+                .orElseThrow(() -> new ItemNotFoundException("User " + userId + " not found."));
+        t.setUser(user);
+
+        t.setDate(transactionDTO.getDate());
+
+        Long categoryId = transactionDTO.getCategoryId();
+        Category category = categoryRepository
+                .findById(categoryId)
+                .orElseThrow(() -> new ItemNotFoundException("Category " + categoryId + " not found."));
+        t.setCategory(category);
+
+        Transaction updated = transactionRepository.save(t);
+        return convertToDTO(updated);
+    }
+
+    public void deleteTransaction(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Missing Transaction Id");
+        }
+        transactionRepository.deleteById(id);
     }
 
 }

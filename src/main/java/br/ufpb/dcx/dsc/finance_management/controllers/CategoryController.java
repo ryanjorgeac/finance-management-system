@@ -23,12 +23,6 @@ public class CategoryController {
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/categories")
-//    public ResponseEntity<List<CategoryDTO>> getCategoriesByUserId(@RequestParam("user_id") Long userId) {
-//        List<CategoryDTO> categories = categoryService.getCategoriesByUserId(userId);
-//       return new ResponseEntity<>(categories, HttpStatus.OK);
-//    }
-
     @GetMapping("/categories")
     public ResponseEntity<List<CategoryDTO>> getCategories(@RequestParam(value = "user_id", required = false) Long userId) {
         List<CategoryDTO> categories = categoryService.getCategories(userId);
