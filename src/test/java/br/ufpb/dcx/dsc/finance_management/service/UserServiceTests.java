@@ -6,9 +6,11 @@ import br.ufpb.dcx.dsc.finance_management.repositories.UserRepository;
 import br.ufpb.dcx.dsc.finance_management.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
@@ -18,7 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class UserServiceTests {
+@ExtendWith(MockitoExtension.class)
+public class UserServiceTests {
 
     @Mock
     private UserRepository userRepository;
@@ -33,8 +36,7 @@ class UserServiceTests {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-
+        // MockitoAnnotations.openMocks(this);
 
         user = new User();
         user.setId(1L);
