@@ -45,7 +45,7 @@ public class TransactionController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/transactions/transactionId")
+    @DeleteMapping("/transactions/{transactionId}")
     public void deleteTransaction(@PathVariable Long transactionId) {
         transactionService.deleteTransaction(transactionId);
     }
