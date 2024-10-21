@@ -18,7 +18,6 @@ public class TransactionDTO {
     private Long userId;
 
     @NotNull
-    @NotBlank
     private Calendar date;
 
     @NotNull
