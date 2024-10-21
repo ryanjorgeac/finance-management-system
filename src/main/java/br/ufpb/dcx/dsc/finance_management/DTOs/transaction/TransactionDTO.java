@@ -25,7 +25,6 @@ public class TransactionDTO {
     private BigDecimal value;
 
     @NotNull
-    @NotBlank
     @TransactionType
     private TransactionTypes type;
 
