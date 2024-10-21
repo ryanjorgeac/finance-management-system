@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{userId}")
-    public UserDTOResponse updateUser(@PathVariable Long userId, @RequestBody UserDTOUpdate userDTO){
+    public UserDTOResponse updateUser(@PathVariable Long userId, @Valid @RequestBody UserDTOUpdate userDTO){
         User user = convertToEntityUpdate(userDTO);
         User updated = userService.updateUserByUserId(userId, user);
         return convertToDTO(updated);

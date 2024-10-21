@@ -1,6 +1,7 @@
 package br.ufpb.dcx.dsc.finance_management.services;
 
 import br.ufpb.dcx.dsc.finance_management.DTOs.category.CategoryDTO;
+import br.ufpb.dcx.dsc.finance_management.exceptions.ItemNotFoundException;
 import br.ufpb.dcx.dsc.finance_management.exceptions.UserNotFoundException;
 import br.ufpb.dcx.dsc.finance_management.models.Category;
 import br.ufpb.dcx.dsc.finance_management.models.User;
@@ -75,7 +76,7 @@ public class CategoryService {
             Category category = categoryOptional.get();
             return convertToDTO(category);
         } else {
-            throw new RuntimeException("Category not found");
+            throw new ItemNotFoundException("Category not found");
         }
     }
 
@@ -87,7 +88,7 @@ public class CategoryService {
             categoryRepository.save(category);
             return convertToDTO(category);
         } else {
-            throw new RuntimeException("Category not found");
+            throw new ItemNotFoundException("Category not found");
         }
     }
 

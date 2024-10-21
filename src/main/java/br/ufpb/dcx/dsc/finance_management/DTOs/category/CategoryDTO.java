@@ -11,7 +11,6 @@ public class CategoryDTO {
     private String name;
 
     @NotNull
-    @NotBlank
     private Long userId;
 
     public CategoryDTO() {}

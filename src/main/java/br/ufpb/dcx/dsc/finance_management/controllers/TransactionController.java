@@ -3,6 +3,7 @@ package br.ufpb.dcx.dsc.finance_management.controllers;
 
 import br.ufpb.dcx.dsc.finance_management.DTOs.transaction.TransactionDTO;
 import br.ufpb.dcx.dsc.finance_management.services.TransactionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class TransactionController {
     }
 
     @PostMapping("/transactions")
-    public ResponseEntity<TransactionDTO> createTransaction(@RequestBody TransactionDTO transactionDTO) {
+    public ResponseEntity<TransactionDTO> createTransaction(@Valid @RequestBody TransactionDTO transactionDTO) {
         TransactionDTO transaction = transactionService.createTransaction(transactionDTO);
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
     }

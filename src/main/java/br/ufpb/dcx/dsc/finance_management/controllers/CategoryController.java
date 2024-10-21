@@ -2,6 +2,7 @@ package br.ufpb.dcx.dsc.finance_management.controllers;
 
 import br.ufpb.dcx.dsc.finance_management.DTOs.category.CategoryDTO;
 import br.ufpb.dcx.dsc.finance_management.services.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping(path = "/categories")
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
         CategoryDTO createdCategory = categoryService.createCategory(categoryDTO);
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
@@ -41,7 +42,7 @@ public class CategoryController {
     }
 
     @PutMapping("/categories/{categoryId}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long categoryId, @Valid @RequestBody CategoryDTO categoryDTO) {
         CategoryDTO updatedCategory = categoryService.updateCategory(categoryId, categoryDTO);
         return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
     }
